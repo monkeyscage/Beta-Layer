@@ -26,36 +26,41 @@ mapping(address => mapping(uint => uint[]))createdLayers;
 //the container for labels
 //the labels for "the container for labels"
 //the creator of that layer
-mapping(address => mapping(uint => string))socialString;
+mapping(address => mapping(uint => string[]))socialString;
 mapping(uint => string)stringLabels;
+mapping(address => mapping(uint => string[]))personalStringLabels;
 mapping(uint => address)stringLayerCreator;
 
 //the container for numbers
 //the labels for "the container for numbers"
 //the creator of that layer
-mapping(address => mapping(uint => uint))socialUint; 
+mapping(address => mapping(uint => uint[]))socialUint; 
 mapping(uint => string)uintLabels;
+mapping(address => mapping(uint => string[]))personalUintLabels;
 mapping(uint => address)uintLayerCreator;
 
 //the container for true/false
 //the labels for "the container for true/false"
 //the creator of that layer
-mapping(address => mapping(uint => bool))socialBool;
+mapping(address => mapping(uint => bool[]))socialBool;
 mapping(uint => string)boolLabels;
+mapping(address => mapping(uint => string[]))personalBoolLabels;
 mapping(uint => address)boolLayerCreator;
 
 //the container for addresses
 //the labels for "the container for addresses"
 //the creator of that layer
-mapping(address => mapping(uint => address))socialAddress;
+mapping(address => mapping(uint => address[]))socialAddress;
 mapping(uint => string)addressLabels;
+mapping(address => mapping(uint => string[]))personalAddressLabels;
 mapping(uint => address)addressLayerCreator;
 
 //the container for bytes
 //the labels for "the container for bytes"
 //the creator of that layer
-mapping(address => mapping(uint => bytes))socialByte;
+mapping(address => mapping(uint => bytes[]))socialByte;
 mapping(uint => string)byteLabels;
+mapping(address => mapping(uint => string[]))personalByteLabels;
 mapping(uint => address)byteLayerCreator;
 
 //personal container for permissioned dapps
@@ -92,23 +97,23 @@ if(labelindex==0)throw;
 if(!taken[labeltype][labelindex]){
 
 if(labeltype==1){
-   stringLabels[labelindex]=label;
+   stringLabels[labelindex][0]=label;
    stringLayerCreator[labelindex]=creator;
 }
 if(labeltype==2){
-   uintLabels[labelindex]=label;
+   uintLabels[labelindex][0]=label;
    uintLayerCreator[labelindex]=creator;
 }
 if(labeltype==3){
-   boolLabels[labelindex]=label;
+   boolLabels[labelindex][0]=label;
    boolLayerCreator[labelindex]=creator;
 }
 if(labeltype==4){
-   addressLabels[labelindex]=label;
+   addressLabels[labelindex][0]=label;
    addressLayerCreator[labelindex]=creator;
 }
 if(labeltype==5){
-   byteLabels[labelindex]=label;
+   byteLabels[labelindex][0]=label;
    byteLayerCreator[labelindex]=creator;
 }
 
@@ -124,7 +129,28 @@ if(labeltype==5){
 return true;
 }
 
-
+function setItemLabel(uint labeltype,uint labelindex,string label,address creator)returns(bool){
+if(labeltype==1){
+   stringLabels[labelindex][0]=label;
+   stringLayerCreator[labelindex]=creator;
+}
+if(labeltype==2){
+   uintLabels[labelindex][0]=label;
+   uintLayerCreator[labelindex]=creator;
+}
+if(labeltype==3){
+   boolLabels[labelindex][0]=label;
+   boolLayerCreator[labelindex]=creator;
+}
+if(labeltype==4){
+   addressLabels[labelindex][0]=label;
+   addressLayerCreator[labelindex]=creator;
+}
+if(labeltype==5){
+   byteLabels[labelindex][0]=label;
+   byteLayerCreator[labelindex]=creator;
+}
+}
 //just a bunch of basic layers to star from
 
 function init(){
