@@ -3,7 +3,7 @@ pragma solidity ^0.4.6;
 contract LayerPlaceHolder{address public owner;uint public group; uint public index; function LayerPlaceHolder(address creator,uint layertype,uint layer){owner=creator;group=layertype;index=layer;}}
 contract Dapp{address public owner;}
 
-contract AlphaLayer{
+contract BetaLayer{
 
 //if your contract contains this variable, the owner can control the related informations on the Alpha Layer
 //standard for all Alpha Layer enabled Dapps (always put this variable in your contract if you want to associate public informations to it, using Alpha Layer!)
@@ -81,7 +81,7 @@ mapping(uint => mapping(uint => bool))owned;
 
 
 
-function AlphaLayer(address control){
+function BetaLayer(address control){
 owner=msg.sender;
 records=0;
 controller=control;
@@ -97,23 +97,23 @@ if(labelindex==0)throw;
 if(!taken[labeltype][labelindex]){
 
 if(labeltype==1){
-   stringLabels[labelindex][0]=label;
+   stringLabels[labelindex]=label;
    stringLayerCreator[labelindex]=creator;
 }
 if(labeltype==2){
-   uintLabels[labelindex][0]=label;
+   uintLabels[labelindex]=label;
    uintLayerCreator[labelindex]=creator;
 }
 if(labeltype==3){
-   boolLabels[labelindex][0]=label;
+   boolLabels[labelindex]=label;
    boolLayerCreator[labelindex]=creator;
 }
 if(labeltype==4){
-   addressLabels[labelindex][0]=label;
+   addressLabels[labelindex]=label;
    addressLayerCreator[labelindex]=creator;
 }
 if(labeltype==5){
-   byteLabels[labelindex][0]=label;
+   byteLabels[labelindex]=label;
    byteLayerCreator[labelindex]=creator;
 }
 
@@ -129,26 +129,24 @@ if(labeltype==5){
 return true;
 }
 
-function setItemLabel(uint labeltype,uint labelindex,string label,address creator)returns(bool){
+function setItemLabel(uint labeltype,uint layerIndex,uint labelIndex label,address addr)returns(bool){
+if((msg.sender==addr)||(allowed[1][addr][msg.sender][index])||(msg.sender==controller)){
 if(labeltype==1){
-   stringLabels[labelindex][0]=label;
-   stringLayerCreator[labelindex]=creator;
+   personalStringLabels[addr][layerIndex][labelIndex]=label;
 }
 if(labeltype==2){
-   uintLabels[labelindex][0]=label;
-   uintLayerCreator[labelindex]=creator;
+   personalUintLabels[addr][layerIndex][labelIndex]=label;
 }
 if(labeltype==3){
-   boolLabels[labelindex][0]=label;
-   boolLayerCreator[labelindex]=creator;
+   personalBoolLabels[addr][layerIndex][labelIndex]=label;
 }
 if(labeltype==4){
-   addressLabels[labelindex][0]=label;
-   addressLayerCreator[labelindex]=creator;
+   personalAddressLabels[addr][layerIndex][labelIndex]=label;
 }
 if(labeltype==5){
-   byteLabels[labelindex][0]=label;
-   byteLayerCreator[labelindex]=creator;
+   personalByteLabels[addr][layerIndex][labelIndex]=label;
+}
+
 }
 }
 //just a bunch of basic layers to star from
